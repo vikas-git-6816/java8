@@ -1,0 +1,14 @@
+Q - What is local variable?
+A - Any variable declared inside a method is called local variable.
+
+Q - What are the restrictions put over local variables by lambdas?
+A - * Local variable name cannot match the lambda parameter name.
+    * Local variable name cannot match the name of any variable used inside the lambda.
+    * We are not allowed change a local variables value inside lambda.
+    * Lambdas are allowed to use local variables inside them, but are not allowed to modify them even if they are not declared final. This concept is known as Effectivelly final.
+      Prior to java8 , any variable that was used inside inner class needed to be declared final. Hence lamda here also save us few key-strokes(need not to type final).
+    * No Restrictions over instance variables.
+
+Q - What is the advantage of effectively final?
+A - * Easy to perform concurrency operations.
+    * promotes functional programming and demotes the imperative style programming.
