@@ -22,6 +22,9 @@ public class Student {
         this.gender = gender;
     }
 
+    public boolean isFemale(){
+        return this.gender.equals("female");
+    }
     public String getName() {
         return name;
     }

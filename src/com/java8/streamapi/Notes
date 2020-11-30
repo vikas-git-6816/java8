@@ -1,0 +1,87 @@
+Stream API
+================
+
+* Introduced as part of java 8.
+* Main purpose is to perform operations over Collections.
+* Makes parallel processing easy without having to spawn multiple threads.
+* It can be used with Arrays or any kind of I/O
+
+
+What is Stream?
+Stream is a sequence of elements which can be created out of collections such as list or Arrays or any kind of I/O resources etc.
+Stream operations can be performed sequentially or parallely.
+e.g.
+List<String> names = Arrays.asList("sachin","lata","guru");
+names.stream() // creates a sequential stream
+names.parallelStream() // creates a parallel stream
+
+Stream Operations
+========================
+
+* map() - transforms objects. performs some operation over them. takes Function Object as a parameter.
+    e.g stringlist.stream().map(String::toUppercase).collect(asList()) - It will take string list as an input and will uppercase each of string and store it in separate list.
+
+* flatMap() - same as map(), but it is used when in our original Stream, every element itself is a collection of elements.
+    e.g.listoflistofStrings.stream().flatMap(List::stream).collect(asList()) - will take list of list of Strings and convert it into list of strings.
+* count() - return long value. number of elements
+* distinct() -  remove duplicates
+* sorted() - sort by natural ordering
+* sorted(Comparator.comparing(Student::getName)) - Sort on student Names ascending.
+* sorted(Comparator.comparing(Student::getName).reversed()) - Sort on student names descending.
+* filter(s->s.getGender().equals("female")) - filter all female students
+
+* reduce() - It is a terminal operation. It is used to reduce to perform aggregate operations.
+             It takes 2 parameter as an input :-
+             - Initial values
+             - BinaryOperator<T>
+* skip()
+* limit()
+* AllMatch()
+* noneMatch()
+* anyMatch()
+* findAny(), findFirst() - may give different results on parallel stream. Give same result on normal stream.
+
+Short Circuiting - means operation that need not process complete stream - e.g. limit(), AllMatch(), noneMatch(), anyMatch(), findAny(), findFirst()
+                   AllMatch() - is short circuit because as soon as we get an element that doesnt match, we can skip the remaining stream.
+
+Stream Factory methods
+=======================
+of(T...) - from arrays of object
+generate(seed, unaryOperator) - from seed and unaryOperator
+iterate(supplier) - from supplier
+
+Numeric Streams [save boxing, unboxing time]
+===============================================
+IntStream.of(array)
+IntStream.iterate(seed,unaryOperator)
+IntStream.generate(supplier)
+IntStream.range(1,10) - stream of 1 to 9. 10 is not included.
+IntStream.rangeClosed(1,10) - stream of 1 to 10. 10 is included.
+* All above also present in LongStream.
+* DoubleStream doesnt support range and rangeClosed. In case needed, use Intstream.range(1,10).asDoubleStream()
+* sum(), max(), min(), average() - available in IntStream , LongStream
+* boxing, unboxing, mapToInt(), mapToObj(), mapToLong(), mapToDouble()
+
+Terminal Operations
+=======================
+* collects data for us.
+* start the stream processing.
+e.g. - forEach(), sum(), min(), max(), average(), count(), reduce(), collect()
+
+joining() - Get single String by concatenating all Streaming strings. 3 overrides available
+                - Without Delimiter, without prefix_and_suffix
+                - with Delimiter, without prefix_and_suffix
+                - with Delimiter, with prefix_and_suffix
+counting() - get count
+mapping(mapping_function, targetCollection) - maps and stores in collection
+maxBy(), minBy() - takes Comparator as an input. and returns Optional as output.
+groupingBy() - Equivalent to the SQL GROUP BY. 3 variants available.
+    - groupingBy(classifier)
+    - groupingBy(cliassifier, downstream)
+    - groupingBy(classifier, supplier, downstream)
+
+optional()
+=============
+empty(), of(), ofNullable(), orElse(), orElseGet(), orElseThrow(), ifPresent(), isPresent()
+map(), flatmap(), filter()
+
